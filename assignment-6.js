@@ -27,11 +27,14 @@ const loadAllModel = async (id) => {
     const models = data.data;
     showAllModel(models);
     // console.log(allData);
+
 }
 
 const showAllModel = (models) => {
     // console.log(allData);
     const allModelContainer = document.getElementById('all-model-container');
+    // condition check for verified or not
+
     models.forEach(model => {
         console.log(model);
         const newModelDiv = document.createElement('div');
@@ -47,19 +50,17 @@ const showAllModel = (models) => {
                 <div class="card-body">
                 <div class="flex gap-2">
                 <image src="${model.authors[0].profile_picture}" class="h-10 w-10 rounded-full" alt="images"/>
-                <h1 class="font-medium">${model.title}</h1>
-                </div>
-                
-                       
+                <h1 class="font-medium text-lg text-black">${model.title}</h1>
+                </div>    
                     <div class="flex justify-center items-center gap-2">
                     <h2 class="text-sm text-center">${model.authors[0].profile_name}</h2>
                     <p>${model?.authors[0]?.verified}</p>
                     </div>
                     <p>${model.others.views} views</p>
-                    
-                </div>
+                    </div>
         `;
         allModelContainer.appendChild(newModelDiv);
+
     });
 }
 loadAllModel();
