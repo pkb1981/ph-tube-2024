@@ -35,9 +35,10 @@ const loadCategories=()=>{
 };
 
 // loading videos data from API using parse and arrow function
-const loadVideos=()=>{
+// adding parameter for search text field
+const loadVideos=(searchText="")=>{
     
-    fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then(res=>res.json())
     // .then(data=>console.log(data.videos))
     .then(data=>displayVideos(data.videos))
@@ -168,6 +169,10 @@ const displayCategories=(categories)=>{
     categoryContainer.append(buttonContainer);
 });
 };
+// search button keyup keyboard action added
+document.getElementById("search-input").addEventListener("keyup",(e)=>{
+    loadVideos(e.target.value);
+});
 // call load categories function
 loadCategories();
 // call video categories function
