@@ -66,29 +66,26 @@ const loadCategoryVideos=(id)=>{
 })
     .catch(error=>console.log(error))
 };
-//api videos data from where we will create data dynamically 
 
-// {
-//     "category_id": "1003",
-//     "video_id": "aaaj",
-//     "thumbnail": "https://i.ibb.co/xgWL3vQ/kid-gorgeous.jpg",
-//     "title": "Kid Gorgeous",
-//     "authors": [
-//         {
-//             "profile_picture": "https://i.ibb.co/xsfkwN2/john.jpg",
-//             "profile_name": "John Mulaney",
-//             "verified": true
-//         }
-//     ],
-//     "others": {
-//         "views": "241K",
-//         "posted_date": ""
-//     },
-//     "description": "John Mulaney's 'Kid Gorgeous' has captured the hearts of many with 241K views. As a verified comedian, John delivers a masterclass in stand-up with clever anecdotes, quick wit, and relatable humor. This performance is a laugh-filled adventure through his unique take on life, politics, and pop culture."
-// }
+// loading details button information from api
+const loadDetails=async(videoId)=>{
+    const url=`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+    const res=await fetch(url);
+    const data=await res.json();
+    displayDetails(data.video);
+}
 
-// api videos data end
+// showing the details button data from api
 
+const displayDetails=(video)=>{
+    const detailContainer=document.getElementById("modal-content");
+    // showing video thumbnail by pressing details button
+    detailContainer.innerHTML=`
+    <img src="${video.thumbnail}"/>
+    <p>${video.description}</p>`
+    document.getElementById('customModal').showModal();
+
+}
 
 
 // creating display videos function
@@ -141,7 +138,7 @@ const displayVideos=(videos)=>{
          <p class="text-gray-400">${video.authors[0].profile_name}</p>
             ${video.authors[0].verified===true? `<img class="w-5" src="https://img.icons8.com/?size=96&id=D9RtvkuOe31p&format=png"/>` :" "}
         </div>
-        <p></p>
+        <p><button onclick="loadDetails('${video.video_id}')" class="btn  btn-sm btn-error">details</button> </p>
         </div>
   </div>
         `;
